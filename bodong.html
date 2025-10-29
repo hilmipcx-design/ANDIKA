@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ThinkVest Investasi & Ringkasan</title>
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet" />
+    <style>
+        /* Variabel CSS untuk kemudahan perubahan tema */
+        :root {
+            --color-primary: #1A9148;
+            --color-secondary: #0bb475;
+            --color-text-dark: #222;
+            --color-text-medium: #555;
+            --color-bg-light: #F7FAFC;
+            --color-bg-white: #FFFFFF;
+            --color-red: #FF4D4D;
+            /* TAMBAHAN BARU UNTUK DASHBOARD INVESTASI */
+            --color-blue-accent: #1976D2; 
+            --color-light-blue-bg: #E3F2FD; 
+            --color-light-green-bg: #E8F5E9;
+            /* TAMBAHAN BARU UNTUK AKUN SAYA */
+            --color-green-light-bg: #EAF9F1; 
+            --color-gold: #FFC107; /* Tambahan dari Kode 2 */
+            --color-shadow-gold: rgba(255, 193, 7, 0.4); /* Tambahan dari Kode 2 */
+            --color-dark-green: #2a5247; /* Warna gelap untuk judul kartu */
+            --color-light-gray: #ccc; /* Warna abu-abu terang */
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--color-bg-light);
+            margin: 0;
+            padding: 0;
+            color: var(--color-text-dark);
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 12px 90px 12px;
+        }
+        
+        /* --- STYLING KHUSUS UNTUK KONTEN INVESTASI (LAMA/GROW+) --- */
+        .header {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--color-primary);
+        }
+        .desc {
+            font-size: 13px;
+            color: var(--color-text-medium);
+            margin-bottom: 18px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .btn-filter {
+            flex: 1;
+            padding: 7px 0;
+            background: #EFFAF3;
+            color: var(--color-secondary);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-filter.active {
+            background: var(--color-secondary);
+            color: var(--color-bg-white);
+        }
+        .inv-card {
+            background: linear-gradient(130deg, #f1fff7 70%, #ffffff 100%);
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            margin-bottom: 26px;
+            padding-bottom: 18px;
+        }
+        .card-header { padding: 18px 22px 0 22px; }
+        .inv-title { font-size: 18px; font-weight: 600; color: var(--color-dark-green); margin-bottom: 2px; }
+        .inv-subtitle { font-size: 14px; color: #7ea89a; margin-bottom: 14px; }
+        .card-body { padding: 0 22px; }
+        .row-flex { display: flex; justify-content: space-between; align-items: flex-end; }
+        .column { flex: 1; }
+        .label { font-size: 15px; color: #aaa; }
+        .value-green { font-size: 20px; font-weight: 700; color: #20b26c; }
+        .value-blue { font-size: 18px; font-weight: 600; color: var(--color-blue-accent); }
+        .spacer { height: 11px; }
+        .info-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+        .info-label { display: flex; gap: 5px; align-items: center; font-size: 15px; color: #2a7c5c; font-weight: 500; }
+        .icon { width: 18px; height: 18px; display: inline-block; }
+        .info-value-green { font-size: 17px; font-weight: 600; color: #20b26c; }
+        .info-value-blue { font-size: 17px; font-weight: 600; color: var(--color-blue-accent); }
+        .btn-invest {
+            width: 90%; margin: 19px 5% 0 5%; padding: 13px 0; border: none; border-radius: 13px;
+            font-size: 18px; font-weight: 600; color: var(--color-bg-white);
+            background: linear-gradient(90deg, #19bf6e 60%, #0bb475 100%);
+            box-shadow: 0 2px 16px #30d09c39; cursor: pointer; transition: filter 0.2s;
+        }
+        .inv-promo-card {
+            background: linear-gradient(135deg, #FFF9E9 0%, var(--color-bg-white) 100%); border-radius: 18px;
+            box-shadow: 0 4px 15px rgba(255, 180, 0, 0.1); padding: 20px 20px 25px 20px;
+            position: relative; overflow: hidden; margin-bottom: 26px;
+        }
+        .hot-badge {
+            position: absolute; top: 0; right: 0; background: linear-gradient(90deg, #FF6B6B 0%, var(--color-red) 100%);
+            color: var(--color-bg-white); padding: 4px 12px; font-size: 13px; font-weight: 600; border-bottom-left-radius: 10px;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .promo-title { font-size: 20px; font-weight: 700; color: var(--color-text-dark); margin-top: 5px; margin-bottom: 2px; }
+        .promo-subtitle { font-size: 15px; color: var(--color-text-medium); margin-bottom: 20px; }
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 18px; }
+        .data-item { display: flex; flex-direction: column; width: 50%; }
+        .data-item.right { text-align: right; }
+        .data-label { font-size: 15px; color: var(--color-primary); margin-bottom: 2px; }
+        .data-value { font-size: 22px; font-weight: 700; }
+        .promo-value-green { color: #20b26c; }
+        .promo-value-blue { color: var(--color-blue-accent); }
+        .data-row:nth-of-type(2) .data-label { color: var(--color-text-medium); }
+        .btn-claim {
+            width: 100%; padding: 15px 0; border: none; border-radius: 13px; font-size: 18px;
+            font-weight: 600; color: var(--color-bg-white); background: linear-gradient(90deg, #ff8c42 0%, var(--color-red) 100%);
+            box-shadow: 0 4px 18px rgba(255, 76, 76, 0.4); cursor: pointer; transition: filter 0.2s;
+            margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+
+        /* --- STYLING KHUSUS UNTUK KONTEN DASHBOARD (RINGKASAN) --- */
+        .header-greeting { padding: 0; margin-bottom: 15px; } 
+        .header-greeting h1 { font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 0; line-height: 1.4; }
+        .header-greeting span { font-weight: 700; color: var(--color-primary); }
+        .header-row { display: flex; justify-content: space-between; align-items: center; }
+        .logo-box { background: var(--color-bg-white); border: 1px solid #ddd; border-radius: 8px; padding: 5px 10px; font-size: 14px; font-weight: 600; color: var(--color-primary); text-align: center; }
+        .logo-box span { display: block; font-size: 20px; line-height: 1; }
+        .action-buttons { display: flex; gap: 8px; margin-top: 10px; }
+        .btn-action { flex: 1; padding: 8px 0; border: none; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; transition: background 0.2s; }
+        .btn-lihat { background: var(--color-primary); color: var(--color-bg-white); }
+        .btn-info { background: #e6f7ef; color: var(--color-primary); text-decoration: none; display: flex; justify-content: center; align-items: center; } /* Tambahkan display flex untuk info btn */
+        .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 25px; }
+        .card-summary { 
+            background: var(--color-bg-white); border-radius: 12px; padding: 15px 10px; text-align: center; 
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05); 
+        }
+        .card-summary h3 { font-size: 11px; font-weight: 600; color: var(--color-text-medium); margin: 0 0 8px 0; }
+        .saldo-value { font-size: 16px; font-weight: 700; color: var(--color-text-dark); margin-top: 5px; }
+        .komisi-info { font-size: 10px; color: var(--color-text-medium); margin-top: 4px; line-height: 1.4; }
+        .komisi-info b { font-weight: 700; color: var(--color-primary); }
+        .saldo-card .percent { font-size: 24px; font-weight: 700; color: var(--color-primary); margin-top: -10px; } /* Diubah */
+        .section-title { font-size: 15px; font-weight: 600; color: var(--color-primary); margin-bottom: 12px; margin-top: 20px; display: flex; align-items: center; gap: 6px; }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; } /* Grid 4 kolom dari Kode 2 */
+        .feature-item { 
+            background: var(--color-bg-white); border-radius: 12px; padding: 15px 5px; 
+            text-align: center; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05); font-size: 11px; 
+            font-weight: 500; color: var(--color-text-medium); cursor: pointer; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border: none; /* Pastikan feature-item sebagai tombol memiliki border none */
+        }
+        .feature-icon { font-size: 28px; margin-bottom: 5px; display: block; }
+        .icon-green { color: var(--color-primary); }
+        .icon-red { color: var(--color-red); }
+        .icon-gold { color: var(--color-gold); } /* Icon Rating dari Kode 2 */
+        .chart-section { background: var(--color-bg-white); border-radius: 12px; padding: 15px; margin-top: 25px; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05); }
+        .chart-placeholder { width: 100%; height: 150px; background: linear-gradient(to right, #e6f7ef 0%, #a4e4c3 100%); border-radius: 8px; margin: 10px 0 15px 0; position: relative; }
+        .chart-line {
+            position: absolute; height: 100%; width: 100%; opacity: 0.7;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,70 C20,60 30,40 50,50 C70,60 85,20 100,25" fill="none" stroke="%231A9148" stroke-width="2.5"/></svg>') no-repeat center;
+            background-size: 95% 95%;
+        }
+        .axis-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--color-text-medium); padding: 0 5px; }
+
+        /* --- STYLING BARU UNTUK KONTEN ASET SAYA (DASHBOARD INVESTASI BARU) --- */
+        .investment-new-content { padding: 8px 0; }
+        .investment-new-card {
+            background: var(--color-bg-white);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .inv-total-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .inv-total-icon { font-size: 20px; color: var(--color-primary); }
+        .inv-total-value { font-size: 16px; font-weight: 700; color: var(--color-primary); }
+        .inv-total-label { font-size: 18px; font-weight: 700; margin-bottom: 15px; }
+        .inv-profit-box {
+            background: var(--color-light-blue-bg);
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .inv-profit-label { font-size: 14px; color: var(--color-blue-accent); margin-bottom: 4px; }
+        .inv-profit-value { font-size: 24px; font-weight: 700; color: var(--color-blue-accent); margin-bottom: 8px; }
+        .inv-progress-bar { width: 100%; height: 8px; background-color: #ddd; border-radius: 4px; overflow: hidden; }
+        .inv-progress-fill { width: 100%; height: 100%; background-color: var(--color-blue-accent); }
+        .inv-progress-text { font-size: 12px; color: var(--color-blue-accent); margin-top: 4px; text-align: right; }
+        .inv-stable-fund-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .inv-stable-details { display: flex; align-items: center; }
+        .inv-stable-icon { font-size: 24px; color: var(--color-primary); margin-right: 8px; }
+        .inv-stable-title { font-size: 16px; font-weight: 700; line-height: 1.2; }
+        .inv-stable-subtitle { font-size: 12px; color: var(--color-text-medium); }
+        .inv-status-badge { background: var(--color-light-green-bg); color: var(--color-primary); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .inv-divider { height: 1px; background-color: #eee; margin: 15px 0; }
+        .inv-data-row { display: flex; justify-content: space-between; margin-bottom: 16px; }
+        .inv-data-item { flex: 1; }
+        .inv-data-item:last-child { text-align: right; }
+        .inv-data-label { font-size: 12px; color: var(--color-text-medium); margin-bottom: 4px; }
+        .inv-data-value { font-size: 16px; font-weight: 700; }
+        .inv-data-value.green { color: var(--color-primary); }
+        .inv-data-value.blue { color: var(--color-blue-accent); }
+        .inv-summary-box { background: var(--color-light-green-bg); border-radius: 8px; padding: 12px; display: flex; justify-content: space-between; }
+        .inv-summary-item { display: flex; align-items: center; flex: 1; }
+        .inv-summary-item:last-child { justify-content: flex-end; }
+        .inv-summary-icon { font-size: 18px; margin-right: 8px; }
+        .inv-summary-title { font-size: 12px; color: var(--color-text-dark); line-height: 1.2; }
+        .inv-summary-value { font-size: 16px; font-weight: 700; line-height: 1.2; }
+        .inv-summary-text-group { display: flex; flex-direction: column; }
+        .inv-note { font-size: 14px; color: var(--color-text-medium); margin-bottom: 24px; padding: 0 4px; }
+        .btn-performance { /* Tombol "Lihat Performa" dihapus, tapi styling ini masih mungkin digunakan */
+            width: 100%; 
+            padding: 16px 0; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            color: var(--color-bg-white);
+            background: var(--color-primary);
+            box-shadow: 0 4px 10px rgba(26, 145, 72, 0.3); 
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* --- STYLING BARU UNTUK KONTEN PROFIL/AKUN SAYA --- */
+        .account-header {
+            background: var(--color-primary); 
+            padding: 20px 12px 100px 12px; 
+            margin: 0 -12px; 
+            position: relative;
+            color: var(--color-bg-white);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .header-top {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+            gap: 10px;
+        }
+        .icon-top { font-size: 20px; }
+        .user-card {
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .avatar-placeholder {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            margin: -50px auto 10px auto; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 36px;
+            color: var(--color-primary);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .user-email {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .link-container {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .user-link {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 10px;
+            text-align: left;
+        }
+        .btn-copy {
+            background: var(--color-bg-white);
+            color: var(--color-primary);
+            padding: 6px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            border: none; /* Tambahkan border none untuk tombol */
+        }
+        .saldo-group {
+            display: flex;
+            gap: 10px;
+            padding: 0 5px;
+            position: absolute; 
+            bottom: -35px; 
+            left: 12px; 
+            right: 12px;
+        }
+        .saldo-card {
+            flex: 1;
+            background: var(--color-bg-white);
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .saldo-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 2px;
+        }
+        .saldo-label {
+            font-size: 12px;
+            color: var(--color-text-medium);
+            font-weight: 500;
+        }
+        .deposit-value { color: #FFA500; } 
+        .menarik-value { color: var(--color-red); }
+
+        .management-section {
+            margin-top: 70px; 
+            background: var(--color-bg-white);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+        }
+        .management-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 15px 15px 15px;
+            font-size: 18px;
+            font-weight: 700;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+        .management-header .icon {
+            font-size: 20px;
+            color: var(--color-primary);
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: background 0.1s;
+            border: none; /* Pastikan menu-item sebagai tombol memiliki border none */
+            background: none; /* Pastikan menu-item sebagai tombol memiliki background none */
+            width: 100%;
+            text-align: left;
+        }
+        .menu-item:hover {
+            background: var(--color-green-light-bg);
+        }
+        .menu-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-dark);
+        }
+        .menu-icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: var(--color-primary);
+            background: var(--color-green-light-bg);
+            border-radius: 8px;
+        }
+        .icon-riwayat-penarikan { color: #52a852; background: #e6fae6; } 
+        .icon-tugas-undangan { color: #3583c7; background: #e3f2fd; } 
+        .icon-riwayat-deposit { color: #ffab40; background: #fff3e0; } 
+        .icon-pusat-informasi { color: #1c9d8c; background: #e0f2f1; } 
+        .icon-data-bank { color: #757575; background: #f5f5f5; } 
+
+
+        /* --- Navbar --- */
+        .navbar {
+            position: fixed;
+            left: 0; right: 0; bottom: 0;
+            background: var(--color-bg-white);
+            box-shadow: 0 -2px 18px rgba(0, 0, 0, 0.01);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 67px;
+            z-index: 999;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            color: var(--color-light-gray); 
+            font-size: 10px; 
+            font-weight: 500; 
+            padding: 10px 0 7px 0;
+            cursor: pointer;
+            border: none; /* Pastikan nav-item sebagai tombol memiliki border none */
+            background: none; /* Pastikan nav-item sebagai tombol memiliki background none */
+        }
+        .nav-item.active {
+            color: #19bf6e;
+            border-bottom: 2.5px solid #19bf6e;
+            background: #effaf3;
+        }
+        .nav-icon {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+        
+        /* Konten Placeholder untuk Menu Lain (Aset/Profil) */
+        #general-placeholder {
+            text-align: center;
+            color: var(--color-text-medium);
+            margin-top: 0; 
+            padding: 0; 
+            background: transparent;
+            box-shadow: none;
+            min-height: auto;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch; 
+        }
+        #general-placeholder h3 {
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+        #general-placeholder p {
+            font-size: 14px;
+        }
+        
+        /* --- STYLING KHUSUS UNTUK MODAL (POP-UP) - DARI KODE 2 --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            padding: 20px; /* Tambahkan padding untuk responsivitas */
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: var(--color-bg-white);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            transition: transform 0.3s ease-in-out;
+            padding: 20px;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .modal-body {
+            padding-bottom: 15px;
+        }
+        .modal-body p {
+            font-size: 14px;
+            color: var(--color-text-medium);
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-medium);
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
+            color: var(--color-text-dark);
+            -webkit-appearance: none; /* Perbaikan untuk tampilan select di mobile */
+            -moz-appearance: none;
+            appearance: none;
+        }
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        .btn-modal-action {
+            flex: 1;
+            padding: 12px 0;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-deposit {
+            background: var(--color-primary);
+            color: var(--color-bg-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary {
+            background: #eee;
+            color: var(--color-text-medium);
+        }
+        
+        /* Gaya Khusus Isi Ulang */
+        .payment-method-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .payment-item {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 10px 5px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            background: var(--color-bg-white); /* Tambahkan background putih */
+        }
+        .payment-item.selected {
+            border-color: var(--color-primary);
+            background: var(--color-green-light-bg);
+            color: var(--color-primary);
+        }
+        .payment-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* Gaya Khusus Jaringan Mitra & Riwayat */
+        .list-info {
+            background: var(--color-green-light-bg);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .list-item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+        .list-item-row:last-child {
+            border-bottom: none;
+        }
+        .list-label { color: var(--color-text-medium); }
+        .list-value { font-weight: 600; color: var(--color-primary); }
+        .list-value.red { color: var(--color-red); }
+
+        /* Gaya Khusus Rekening Saya */
+        .bank-list {
+            margin-bottom: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        .bank-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .bank-item:last-child { border-bottom: none; }
+        .bank-details {
+            font-size: 14px;
+        }
+        .bank-name { font-weight: 700; }
+        .bank-number { color: var(--color-text-medium); font-size: 12px; }
+        .btn-add-bank {
+            background: var(--color-light-green-bg);
+            color: var(--color-primary);
+            border: 1px dashed var(--color-primary);
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div id="summary-dashboard" style="display: block; padding-top: 20px;">
+            <div class="header-greeting">
+                <div class="header-row">
+                    <h1>Hai, <span>pova69535@gmail.com</span><br>Investasikan saldo kamu dan pantau pertumbuhannya secara real-time 📈</h1>
+                    <div class="logo-box">
+                        <span aria-label="bibit">🌱</span>
+                        ThinkVest
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn-action btn-lihat" onclick="setActiveNav('nav-grow'); showPage('investment-old', 'hot-day');">Lihat Produk</button>
+                    <a href="https://chat.whatsapp.com/JEn94eqdOui4FVgLsWqAtX?mode=ems_copy_t" target="_blank" class="btn-action btn-info" role="button" aria-label="Informasi Tim">Informasi Tim</a>
+                </div>
+            </div>
+
+            <div class="summary-grid">
+                <div class="card-summary saldo-card">
+                    <h3>Saldo Akun</h3>
+                    <div class="percent" id="saldo-percent">0%</div>
+                    <div class="saldo-value" id="saldo-value-ringkasan">Rp0</div>
+                </div>
+                
+                <div class="card-summary">
+                    <h3>Level Saya</h3>
+                    <span class="feature-icon icon-green" id="level-icon" aria-label="trofi">🏆</span>
+                    <div class="komisi-info"><b id="level-name">Magang:</b> <span id="level-percent">10%</span></div>
+                </div>
+                
+                <div class="card-summary">
+                    <h3>Komisi Tim</h3>
+                    <span class="feature-icon icon-green" aria-label="grup">👥</span>
+                    <div class="komisi-info">
+                        Magang: 10%<br>
+                        Premi: 30%
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-title">
+                Fitur Utama
+            </div>
+            
+            <div class="features-grid">
+                <button class="feature-item" onclick="openModal('modal-deposit')" aria-label="Isi Ulang Dana">
+                    <span class="feature-icon icon-green">💳</span>
+                    Isi Ulang
+                </button>
+                <button class="feature-item" onclick="openModal('modal-withdraw')" aria-label="Tarik Dana">
+                    <span class="feature-icon icon-green">💸</span>
+                    Tarik Dana
+                </button>
+                <button class="feature-item" onclick="openModal('modal-transaction-history')" aria-label="Riwayat Aktivitas">
+                    <span class="feature-icon icon-green">📝</span>
+                    Riwayat Aktivitas
+                </button>
+                <button class="feature-item" onclick="openModal('modal-affiliate')" aria-label="Jaringan Mitra">
+                    <span class="feature-icon icon-green">🔗</span>
+                    Jaringan Mitra
+                </button>
+                <button class="feature-item" onclick="openModal('modal-bank-account')" aria-label="Rekening Saya">
+                    <span class="feature-icon icon-green">🏦</span>
+                    Rekening Saya
+                </button>
+                <button class="feature-item" onclick="openModal('modal-invitation-task')" aria-label="Tugas Undangan">
+                    <span class="feature-icon icon-green">✉️</span>
+                    Tugas Undangan
+                </button>
+                <button class="feature-item" onclick="window.open('https://chat.whatsapp.com/JEn94eqdOui4FVgLsWqAtX', '_blank')" aria-label="Pusat Informasi">
+                    <span class="feature-icon icon-green">💬</span>
+                    Pusat Informasi
+                </button>
+                <button class="feature-item" onclick="confirmLogout()" aria-label="Keluar dari Akun">
+                    <span class="feature-icon icon-red">🚪</span>
+                    Keluar
+                </button>
+            </div>
+            
+            <div class="chart-section">
+                <div class="section-title">
+                    📈 Statistik Pertumbuhan
+                </div>
+                <div class="chart-placeholder" aria-label="Grafik Pertumbuhan Investasi">
+                    <div class="chart-line"></div>
+                </div>
+                <div class="axis-labels">
+                    <span>Jan</span>
+                    <span>Feb</span>
+                    <span>Mar</span>
+                    <span>Apr</span>
+                    <span>Mei</span>
+                    <span>Jun</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="main-investment-content" style="display: none; padding-top: 20px;"> 
+            <div class="header" id="content-header">Pilih Kategori Investasi</div>
+            <div class="desc" id="content-desc">Temukan peluang terbaik dan kembangkan portofolio sesuai tujuan finansialmu.</div>
+            <div class="button-group">
+                <button class="btn-filter active" id="btn-hot" onclick="showCategory('hot-day')">HOT 1 Hari</button>
+                <button class="btn-filter" id="btn-money" onclick="showCategory('money-market')">Pasar Uang</button>
+                <button class="btn-filter" id="btn-digital" onclick="showCategory('digital-market')">Pasar Digital</button>
+            </div>
+            
+            <div id="hot-day-content">
+                <div class="inv-promo-card">
+                    <div class="hot-badge">HOT 1 HARI <span aria-label="api">🔥</span></div>
+                    <div class="promo-title">Dana Stabil HOT</div>
+                    <div class="promo-subtitle">Dapatkan keuntungan luar biasa hanya hari ini!</div>
+                    <div class="data-row">
+                        <div class="data-item"><div class="data-label">Harga</div><div class="data-value promo-value-green">Rp 300.000</div></div>
+                        <div class="data-item right"><div class="data-label">Durasi</div><div class="data-value promo-value-blue">1 Hari</div></div>
+                    </div>
+                    <div class="data-row">
+                        <div class="data-item"><div class="data-label">Profit Harian</div><div class="data-value promo-value-green">Rp 650.000</div></div>
+                        <div class="data-item right"><div class="data-label">Total Profit</div><div class="data-value promo-value-blue">Rp 650.000</div></div>
+                    </div>
+                    <button class="btn-claim" aria-label="Klaim Promo Dana Stabil HOT">Klaim Promo Sekarang <span aria-label="kilat">⚡</span></button>
+                </div>
+            </div>
+            
+            <div id="money-market-content" style="display: none;">
+                <div class="inv-card">
+                    <div class="card-header"><div class="inv-title">Dana Stabil</div><div class="inv-subtitle">Paket Investasi Unggulan</div></div>
+                    <div class="card-body">
+                        <div class="row-flex">
+                            <div class="column"><div class="label">Nominal Investasi</div><div class="value-green">Rp 50.000</div></div>
+                            <div class="column" style="text-align:right;"><div class="label">Durasi</div><div class="value-blue">30 Hari</div></div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="grafik">📈</span>Keuntungan Harian</div><div class="info-value-green">Rp 37.500</div></div>
+                        <div class="info-row"><span class="info-label"><span class="icon" aria-label="kartu">💳</span>Total Pendapatan</span><span class="info-value-blue">Rp 1.162.500</span></div>
+                    </div>
+                    <button class="btn-invest" aria-label="Mulai Investasi Dana Stabil">Mulai Investasi</button>
+                </div>
+                <div class="inv-card">
+                    <div class="card-header"><div class="inv-title">Properti Prime</div><div class="inv-subtitle">Paket Investasi Unggulan</div></div>
+                    <div class="card-body">
+                        <div class="row-flex">
+                            <div class="column"><div class="label">Nominal Investasi</div><div class="value-green">Rp 200.000</div></div>
+                            <div class="column" style="text-align:right;"><div class="label">Durasi</div><div class="value-blue">30 Hari</div></div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="grafik">📈</span>Keuntungan Harian</div><div class="info-value-green">Rp 150.000</div></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="kartu">💳</span>Total Pendapatan</div><div class="value-blue">Rp 4.500.000</div></div>
+                    </div>
+                    <button class="btn-invest" aria-label="Mulai Investasi Properti Prime">Mulai Investasi</button>
+                </div>
+                <div class="inv-card">
+                    <div class="card-header"><div class="inv-title">Bisnis UMKM+</div><div class="inv-subtitle">Paket Investasi Unggulan</div></div>
+                    <div class="card-body">
+                        <div class="row-flex">
+                            <div class="column"><div class="label">Nominal Investasi</div><div class="value-green">Rp 300.000</div></div>
+                            <div class="column" style="text-align:right;"><div class="label">Durasi</div><div class="value-blue">30 Hari</div></div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="grafik">📈</span>Keuntungan Harian</div><div class="info-value-green">Rp 225.000</div></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="kartu">💳</span>Total Pendapatan</div><div class="value-blue">Rp 6.750.000</div></div>
+                    </div>
+                    <button class="btn-invest" aria-label="Mulai Investasi Bisnis UMKM+">Mulai Investasi</button>
+                </div>
+            </div>
+
+            <div id="digital-market-content" style="display: none;">
+                <div class="inv-card">
+                    <div class="card-header"><div class="inv-title">Tokenized Assets</div><div class="inv-subtitle">Paket Investasi Unggulan</div></div>
+                    <div class="card-body">
+                        <div class="row-flex">
+                            <div class="column"><div class="label">Nominal Investasi</div><div class="value-green">Rp 100.000</div></div>
+                            <div class="column" style="text-align:right;"><div class="label">Durasi</div><div class="value-blue">1 Hari</div></div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="grafik">📈</span>Keuntungan Harian</div><div class="info-value-green">Rp 150.000</div></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="kartu">💳</span>Total Pendapatan</span><span class="info-value-blue">Rp 150.000</span></div></div>
+                    </div>
+                    <button class="btn-invest" aria-label="Mulai Investasi Tokenized Assets">Mulai Investasi</button>
+                </div>
+                <div class="inv-card">
+                    <div class="card-header"><div class="inv-title">Crypto Asset</div><div class="inv-subtitle">Paket Investasi Unggulan</div></div>
+                    <div class="card-body">
+                        <div class="row-flex">
+                            <div class="column"><div class="label">Nominal Investasi</div><div class="value-green">Rp 200.000</div></div>
+                            <div class="column" style="text-align:right;"><div class="label">Durasi</div><div class="value-blue">1 Hari</div></div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="grafik">📈</span>Keuntungan Harian</div><div class="info-value-green">Rp 250.000</div></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="kartu">💳</span>Total Pendapatan</div><div class="info-value-blue">Rp 250.000</div></div>
+                    </div>
+                    <button class="btn-invest" aria-label="Mulai Investasi Crypto Asset">Mulai Investasi</button>
+                </div>
+                <div class="inv-card">
+                    <div class="card-header"><div class="inv-title">Crowdfunding Properti</div><div class="inv-subtitle">Paket Investasi Unggulan</div></div>
+                    <div class="card-body">
+                        <div class="row-flex">
+                            <div class="column"><div class="label">Nominal Investasi</div><div class="value-green">Rp 1.000.000</div></div>
+                            <div class="column" style="text-align:right;"><div class="label">Durasi</div><div class="value-blue">1 Hari</div></div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="grafik">📈</span>Keuntungan Harian</div><div class="info-value-green">Rp 1.300.000</div></div>
+                        <div class="info-row"><div class="info-label"><span class="icon" aria-label="kartu">💳</span>Total Pendapatan</div><div class="info-value-blue">Rp 1.300.000</div></div>
+                    </div>
+                    <button class="btn-invest" aria-label="Mulai Investasi Crowdfunding Properti">Mulai Investasi</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="investment-dashboard-new" style="display: none; padding-top: 8px;">
+            <div class="investment-new-content">
+                <div class="investment-new-card">
+                    <div class="inv-total-header">
+                        <span class="inv-total-icon" aria-label="folder">📂</span>
+                        <span class="inv-total-value">Rp 0</span>
+                    </div>
+                    <div class="inv-total-label">Total Investasi Aktif</div>
+                    
+                    <div class="inv-profit-box">
+                        <div class="inv-profit-label">Keuntungan Akumulasi (30 Hari)</div>
+                        <div class="inv-profit-value" id="accumulated-profit">Rp 0</div>
+                        <div class="inv-progress-bar">
+                            <div class="inv-progress-fill" style="width: 0%;"></div>
+                        </div>
+                        <div class="inv-progress-text" id="accumulated-profit-percent">0%</div>
+                    </div>
+                </div>
+                
+                <p class="inv-note" id="inv-note-status">Anda belum memiliki investasi aktif. Silakan pilih produk di menu Tumbuh+.</p>
+                
+            </div>
+        </div>
+
+        
+        <div id="general-placeholder" style="display: none;">
+            <div class="account-header">
+                <div class="header-top">
+                    <span class="icon-top" aria-label="bantuan">?</span>
+                    <span class="icon-top" aria-label="pengaturan">⚙️</span>
+                </div>
+                
+                <div class="user-card">
+                    <div class="avatar-placeholder" aria-label="avatar pengguna">👤</div>
+                    <div class="user-email">pova69535@gmail.com</div>
+                    <div class="link-container">
+                        <span class="user-link">🔗 https://thinkvest.my.id/auth/loc/...</span>
+                        <button class="btn-copy" aria-label="salin tautan undangan">
+                            <span aria-label="tautan">🔗</span> Menyalin
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="saldo-group">
+                    <div class="saldo-card">
+                        <div class="saldo-value">Rp0</div> <div class="saldo-label">Saldo</div>
+                    </div>
+                    <div class="saldo-card">
+                        <div class="saldo-value deposit-value">Rp950.000</div>
+                        <div class="saldo-label">Deposito</div>
+                    </div>
+                    <div class="saldo-card">
+                        <div class="saldo-value menarik-value">Rp8.000.000</div>
+                        <div class="saldo-label">Menarik</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="management-section">
+                <div class="management-header">
+                    <span class="icon" aria-label="pengaturan">⚙️</span> Manajemen Saya
+                </div>
+                
+                <div class="menu-list">
+                    <button class="menu-item" onclick="openModal('modal-withdraw-history')" aria-label="Riwayat Penarikan">
+                        <div class="menu-left">
+                            <span class="menu-icon icon-riwayat-penarikan">⬇️</span>
+                            Riwayat penarikan
+                        </div>
+                        <span class="menu-right">></span>
+                    </button>
+                    
+                    <button class="menu-item" onclick="openModal('modal-invitation-task')" aria-label="Tugas Undangan">
+                        <div class="menu-left">
+                            <span class="menu-icon icon-tugas-undangan">🗓️</span>
+                            Tugas undangan
+                        </div>
+                        <span class="menu-right">></span>
+                    </button>
+                    
+                    <button class="menu-item" onclick="openModal('modal-deposit-history')" aria-label="Riwayat Deposit">
+                        <div class="menu-left">
+                            <span class="menu-icon icon-riwayat-deposit">📑</span>
+                            Riwayat Deposit
+                        </div>
+                        <span class="menu-right">></span>
+                    </button>
+                    
+                    <button class="menu-item" onclick="window.open('https://chat.whatsapp.com/JEn94eqdOui4FVgLsWqAtX', '_blank')" aria-label="Pusat Informasi">
+                        <div class="menu-left">
+                            <span class="menu-icon icon-pusat-informasi">✈️</span>
+                            Pusat Informasi
+                        </div>
+                        <span class="menu-right">></span>
+                    </button>
+                    
+                    <button class="menu-item" onclick="openModal('modal-bank-account')" aria-label="Data Akun Bank">
+                        <div class="menu-left">
+                            <span class="menu-icon icon-data-bank">🏦</span>
+                            Data akun bank
+                        </div>
+                        <span class="menu-right">></span>
+                    </button>
+                </div>
+            </div>
+            </div>
+        
+    </div>
+    
+    <div id="modal-deposit" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-deposit-header" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header" id="modal-deposit-header">
+                💳 Isi Ulang Dana
+            </div>
+            <div class="modal-body">
+                <p>Pilih metode dan masukkan jumlah deposit Anda.</p>
+                <div class="form-group">
+                    <label>Metode Pembayaran</label>
+                    <div class="payment-method-grid">
+                        <div class="payment-item selected" data-method="QRIS" role="button" aria-pressed="true" onclick="selectPaymentMethod(this)"><span class="payment-icon" aria-label="QRIS">📷</span>QRIS</div>
+                        <div class="payment-item" data-method="DANA" role="button" aria-pressed="false" onclick="selectPaymentMethod(this)"><span class="payment-icon" aria-label="DANA">🔵</span>DANA</div>
+                        <div class="payment-item" data-method="GOVAY" role="button" aria-pressed="false" onclick="selectPaymentMethod(this)"><span class="payment-icon" aria-label="GOVAY">🟢</span>GOVAY</div>
+                        <div class="payment-item" data-method="BRI" role="button" aria-pressed="false" onclick="selectPaymentMethod(this)"><span class="payment-icon" aria-label="BRI">🏦</span>BRI</div>
+                        <div class="payment-item" data-method="BCA" role="button" aria-pressed="false" onclick="selectPaymentMethod(this)"><span class="payment-icon" aria-label="BCA">🏦</span>BCA</div>
+                        <div class="payment-item" data-method="BNI" role="button" aria-pressed="false" onclick="selectPaymentMethod(this)"><span class="payment-icon" aria-label="BNI">🏦</span>BNI</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="deposit-amount">Masukkan Jumlah (Min. Rp50.000)</label>
+                    <input type="number" id="deposit-amount" placeholder="Contoh: 100000" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-action btn-secondary" onclick="closeCurrentModal()">Kembali</button>
+                <button class="btn-modal-action btn-deposit">DEPOSIT 💰</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-withdraw" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-withdraw-header" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header" id="modal-withdraw-header">
+                💸 Tarik Dana
+            </div>
+            <div class="modal-body">
+                <p>Pilih metode dan masukkan jumlah penarikan.</p>
+                <div class="form-group">
+                    <label for="withdraw-bank">Metode Penarikan</label>
+                    <select id="withdraw-bank">
+                        <option value="">Pilih Metode/Rekening Tujuan</option>
+                        <option value="DANA">DANA (E-Wallet)</option>
+                        <option value="GOVAY">GOVAY (E-Wallet)</option>
+                        <option value="OVO">OVO (E-Wallet)</option>
+                        <option value="BRI">BRI (Bank)</option>
+                        <option value="BCA">BCA (Bank)</option>
+                        <option value="BNI">BNI (Bank)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="withdraw-number">Nomor Rekening/Ponsel</label>
+                    <input type="text" id="withdraw-number" placeholder="Nomor E-Wallet / Rekening Bank" />
+                </div>
+                 <div class="form-group">
+                    <label for="withdraw-name">Nama Rekening</label>
+                    <input type="text" id="withdraw-name" placeholder="Nama Akun Penerima" />
+                </div>
+                <div class="form-group">
+                    <label for="withdraw-amount">Masukkan Jumlah (Maks. Saldo Anda)</label>
+                    <input type="number" id="withdraw-amount" placeholder="Contoh: 500000" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-action btn-secondary" onclick="closeCurrentModal()">Kembali</button>
+                <button class="btn-modal-action btn-deposit" onclick="processWithdraw()">TARIK DANA 💸</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-transaction-history" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-transaction-history-header" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header" id="modal-transaction-history-header">
+                📝 Riwayat Aktivitas
+            </div>
+            <div class="modal-body">
+                <p>Catatan semua aktivitas Deposit dan Penarikan Anda.</p>
+                <div class="list-info" role="log" aria-live="polite">
+                    <div class="list-item-row">
+                        <span class="list-label">01/01/2025</span>
+                        <span class="list-value">Deposit Rp1.000.000 (Sukses)</span>
+                    </div>
+                    <div class="list-item-row">
+                        <span class="list-label">02/01/2025</span>
+                        <span class="list-value">Investasi Properti Prime Rp200.000</span>
+                    </div>
+                    <div class="list-item-row">
+                        <span class="list-label">03/01/2025</span>
+                        <span class="list-value">Pendapatan Harian Rp150.000</span>
+                    </div>
+                    <div class="list-item-row">
+                        <span class="list-label">25/01/2025</span>
+                        <span class="list-value red">Penarikan Rp500.000 (Tertunda)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-action btn-secondary" onclick="closeCurrentModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-deposit-history" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-deposit-history-header" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header" id="modal-deposit-history-header">
+                📑 Riwayat Deposit
+            </div>
+            <div class="modal-body">
+                <p>Riwayat pengisian saldo Anda.</p>
+                <div class="list-info" role="log" aria-live="polite">
+                    <div class="list-item-row">
+                        <span class="list-label">01/01/2025</span>
+                        <span class="list-value">Rp1.000.000 (Sukses)</span>
+                    </div>
+                    <div class="list-item-row">
+                        <span class="list-label">05/01/2025</span>
+                        <span class="list-value">Rp5.000.000 (Sukses)</span>
+                    </div>
+                    <div class="list-item-row">
+                        <span class="list-label">10/01/2025</span>
+                        <span class="list-value red">Rp100.000 (Gagal)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-action btn-secondary" onclick="closeCurrentModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-withdraw-history" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-withdraw-history-header" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header" id="modal-withdraw-history-header">
+                ⬇️ Riwayat Penarikan
+            </div>
+            <div class="modal-body">
+                <p>Riwayat penarikan dana ke rekening bank Anda.</p>
+                <div class="list-info" role="log" aria-live="polite">
+                    <div class="list-item-row">
+                        <span class="list-label">03/01/2025</span>
+                        <span class="list-value">Rp200.000 (Sukses)</span>
+                    </div>
+                    <div class="list-item-row">
+                        <span class="list-label">25/01/2025</span>
+                        <span class="list-value red">Rp500.000 (Tertunda)</span>
+                    </div>
+                    <div class="list-item-row">
+                        <span class="list-label">28/01/2025</span>
+                        <span class="list-value">Rp1.000.000 (Sukses)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-action btn-secondary" onclick="closeCurrentModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-affiliate" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-affiliate-header" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header" id="modal-affiliate-header">
+                🔗 Jaringan Mitra
+            </div>
+            <div class="modal-body">
+                <p>Dapatkan komisi dari investasi mitra yang mendaftar melalui link Anda.</p>
+                <div class="list-info">
+                    <div class="list-item-row">
+                        <span class="list-label">Komisi Harian Mitra</span>
+                        <span class="list-value">20% dari Hasil Harian Investasi Mitra</span>
+                    </div>
+                    <div class="list-item-row">
+                        <span class="list-label">Total Mitra Aktif</span>
+                        <span class="list-value" id="mitra-aktif">0 Orang</span>
+                    </div>
+                    <div class="list-item-row">
+                        <span class="list-label">Komisi Hari Ini</span>
+                        <span class="list-value" id="komisi-hari-ini">Rp0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-action btn-secondary" onclick="closeCurrentModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-bank-account" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-bank-account-header" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header" id="modal-bank-account-header">
+                🏦 Data Akun Bank
+            </div>
+            <div class="modal-body">
+                <p>Akun yang terdaftar untuk Isi Ulang & Tarik Dana.</p>
+                <div class="bank-list" id="registered-banks">
+                    </div>
+                <button class="btn-add-bank" onclick="openAddBankForm()" aria-controls="add-bank-form" aria-expanded="false">+ Tambahkan Akun Baru</button>
+                
+                <div id="add-bank-form" style="display: none; padding-top: 15px; border-top: 1px solid #eee; margin-top: 15px;">
+                    <p style="margin: 0 0 10px 0;">Isi formulir untuk mendaftarkan akun baru.</p>
+                    <div class="form-group">
+                        <label for="add-bank-name">Pilih Bank / E-Wallet</label>
+                        <select id="add-bank-name">
+                            <option value="">Pilih Bank / E-Wallet...</option>
+                            <option value="DANA">DANA (E-Wallet)</option>
+                            <option value="GOVAY">GOVAY (E-Wallet)</option>
+                            <option value="OVO">OVO (E-Wallet)</option>
+                            <option value="BCA">BCA (Bank)</option>
+                            <option value="BRI">BRI (Bank)</option>
+                            <option value="BNI">BNI (Bank)</option>
+                            <option value="MANDIRI">MANDIRI (Bank)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-account-number">Nomor Rekening / Ponsel</label>
+                        <input type="text" id="add-account-number" placeholder="Masukkan Nomor Akun (e.g. 0812xxxx / 1234xxxx)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="add-account-password">Sandi Akun</label>
+                        <input type="password" id="add-account-password" placeholder="Masukkan Sandi Akun Anda" />
+                    </div>
+                    <button class="btn-modal-action btn-deposit" onclick="registerBank()">DAFTAR ✨</button>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-action btn-secondary" onclick="closeCurrentModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-invitation-task" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-invitation-task-header" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header" id="modal-invitation-task-header">
+                ✉️ Tugas Undangan
+            </div>
+            <div class="modal-body">
+                <p>Bagikan link ini dan dapatkan komisi dari setiap investasi mitra Anda.</p>
+                <div class="link-container" style="color: var(--color-text-dark); background: var(--color-bg-light); margin-bottom: 15px;">
+                    <span class="user-link">🔗 https://thinkvest.my.id/auth/loc/...</span>
+                    <button class="btn-copy" onclick="copyInvitationLink()" aria-label="salin tautan undangan">
+                        <span aria-label="tautan">🔗</span> Menyalin
+                    </button>
+                </div>
+                <p style="font-size: 12px; text-align: center;">Komisi 20% dari hasil harian investasi mitra.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-action btn-secondary" onclick="closeCurrentModal()">Tutup</button>
+                <button class="btn-modal-action btn-deposit" onclick="copyInvitationLink()">Salin Link 🔗</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navbar">
+        <button class="nav-item active" id="nav-ringkasan" aria-label="Ringkasan (Beranda)">
+            <span class="nav-icon">🏠</span>
+            Ringkasan
+        </button>
+        <button class="nav-item" id="nav-grow" aria-label="Produk Investasi Tumbuh plus">
+            <span class="nav-icon">➕</span>
+            Tumbuh+
+        </button>
+        <button class="nav-item" id="nav-aset" aria-label="Aset Saya">
+            <span class="nav-icon">💼</span>
+            Aset Saya
+        </button>
+        <button class="nav-item" id="nav-profil" aria-label="Profil Akun">
+            <span class="nav-icon">👤</span>
+            Profil
+        </button>
+    </div>
+    
+    <script>
+        // ============================== DATA SIMULASI GLOBAL ==============================
+        let ACCOUNT_BALANCE = 50000; // Saldo awal Rp50.000 (Contoh, bisa disesuaikan)
+        let REGISTERED_BANKS = []; 
+        let ACTIVE_INVESTMENTS = []; 
+        let totalAccumulatedProfit = 0; // Total profit dari investasi 30 hari yang aktif
+        let currentModalId = null;
+        const TARGET_BALANCE = 100000; 
+
+        // ============================== FUNGSI HELPER & UPDATE DATA DINAMIS ==============================
+
+        function formatRupiah(number) {
+            const num = Number(number);
+            if (isNaN(num)) return 'Rp0'; 
+            return 'Rp' + Math.floor(num).toLocaleString('id-ID');
+        }
+
+        function calculateBalancePercentage() {
+            if (ACCOUNT_BALANCE >= TARGET_BALANCE) {
+                return '100%';
+            } else if (ACCOUNT_BALANCE <= 0) {
+                 return '0%';
+            } 
+            else {
+                const percentage = (ACCOUNT_BALANCE / TARGET_BALANCE) * 100;
+                return Math.min(percentage.toFixed(0), 99) + '%';
+            }
+        }
+        
+        // Fungsi simulasi untuk memproses 1 hari berlalu (HANYA UNTUK TUJUAN DEMO)
+        function simulateDayPass() {
+            let changesOccurred = false;
+
+            // 1. Proses investasi yang akan selesai
+            const completedInvestments = ACTIVE_INVESTMENTS.filter(inv => 
+                !inv.isCompleted && inv.daysActive === inv.duration
+            );
+
+            completedInvestments.forEach(inv => {
+                inv.isCompleted = true;
+                const totalReturn = inv.nominal + (inv.dailyProfit * inv.duration);
+                ACCOUNT_BALANCE += totalReturn;
+                changesOccurred = true;
+
+                // Logika: 1 hari dan 30 hari cair ke saldo
+                alert(`🎉 Investasi Selesai: ${inv.title} (${inv.duration} Hari) telah selesai! Total pengembalian ${formatRupiah(totalReturn)} telah ditambahkan ke Saldo Akun.`);
+            });
+
+            // 2. Majukan durasi untuk investasi yang masih aktif dan bukan 1 hari
+            ACTIVE_INVESTMENTS.forEach(inv => {
+                if (!inv.isCompleted) {
+                    // Cek jika durasi tersisa 1 hari, investasi ini akan selesai saat ini (simulasi 1 hari)
+                    if (inv.daysActive === inv.duration) {
+                        // Logika di atas sudah menangani investasi yang selesai
+                    } else if (inv.duration > 1) { // Hanya yang 30 hari yang berjalan harian
+                        inv.daysActive++;
+                        changesOccurred = true;
+                    }
+                }
+            });
+            
+            // 3. Hapus investasi yang sudah selesai dan hasilnya sudah dicairkan
+            // ACTIVE_INVESTMENTS = ACTIVE_INVESTMENTS.filter(inv => !inv.isCompleted); 
+            // NOTE: Agar riwayat tetap ada di Aset Saya, kita TIDAK HAPUS. Hanya tandai isCompleted: true.
+            
+            if (changesOccurred) {
+                updateDynamicData(); // Perbarui tampilan jika ada perubahan
+            }
+        }
+        
+        // --- Fungsi Utama Update Dashboard Aset Saya ---
+        function updateInvestmentDashboard() {
+            let totalActiveNominal = 0;
+            let totalAccumulatedProfitTemp = 0;
+            
+            // Hitung Total Investasi Aktif dan Keuntungan Akumulasi
+            ACTIVE_INVESTMENTS.forEach(inv => {
+                if (!inv.isCompleted) {
+                    totalActiveNominal += inv.nominal;
+                    
+                    // Hanya investasi JANGKA PANJANG (30 hari) yang dihitung profitnya di 'Keuntungan Akumulasi'
+                    if (inv.duration > 1) {
+                        // Profit harian * hari aktif (sebelum hari ini, untuk hindari duplikasi hitungan)
+                        totalAccumulatedProfitTemp += inv.dailyProfit * (inv.daysActive - 1); 
+                    }
+                }
+            });
+            
+            totalAccumulatedProfit = totalAccumulatedProfitTemp; // Update variabel global
+            
+            // Update Total Investasi Aktif
+            const totalInvElement = document.querySelector('#investment-dashboard-new .inv-total-value');
+            if (totalInvElement) totalInvElement.textContent = formatRupiah(totalActiveNominal);
+            
+            // Update Keuntungan Akumulasi
+            const accumulatedProfitElement = document.getElementById('accumulated-profit');
+            if (accumulatedProfitElement) accumulatedProfitElement.textContent = formatRupiah(totalAccumulatedProfit); 
+
+            // Update Progress Bar Keuntungan (Asumsi: 30 Hari Durasi Max)
+            const totalMaxProfit = ACTIVE_INVESTMENTS
+                .filter(inv => !inv.isCompleted && inv.duration > 1)
+                .reduce((sum, inv) => sum + (inv.dailyProfit * inv.duration), 0);
+            
+            let profitPercentage = 0;
+            if (totalMaxProfit > 0) {
+                profitPercentage = Math.min((totalAccumulatedProfit / totalMaxProfit) * 100, 100).toFixed(0);
+            }
+            document.getElementById('accumulated-profit-percent').textContent = profitPercentage + '%';
+            document.querySelector('.inv-progress-fill').style.width = profitPercentage + '%';
+
+            // Update Daftar Produk Aktif/Selesai
+            const dashboardContent = document.getElementById('investment-dashboard-new');
+            const totalHeaderCard = dashboardContent.querySelector('.investment-new-card:first-child');
+            const noteElement = document.getElementById('inv-note-status');
+
+            // Hapus semua card investasi yang ada (selain card Total Investasi)
+            dashboardContent.querySelectorAll('.investment-card-dynamic').forEach(card => card.remove());
+            
+            if (ACTIVE_INVESTMENTS.length === 0) {
+                noteElement.textContent = 'Anda belum memiliki investasi. Silakan pilih produk di menu Tumbuh+.';
+                return;
+            } else {
+                noteElement.textContent = 'Pendapatan Anda didapatkan otomatis dan dicairkan sesuai durasi produk.';
+            }
+
+            let cardsHtml = '';
+            
+            // Tampilkan yang AKTIF di atas, lalu yang Selesai di bawah
+            const displayInvestments = [...ACTIVE_INVESTMENTS].sort((a, b) => a.isCompleted - b.isCompleted);
+
+            displayInvestments.forEach(inv => {
+                const totalPendapatan = inv.dailyProfit * inv.duration;
+                let statusBadge;
+                let profitNow = inv.dailyProfit * inv.daysActive; // Profit yang sudah terkumpul
+                
+                if (inv.isCompleted) {
+                    statusBadge = `<span class="inv-status-badge" style="background: #FFF3E0; color: #FFA500;">Selesai (${inv.duration}H)</span>`;
+                    profitNow = totalPendapatan;
+                } else if (inv.duration === 1) {
+                    statusBadge = `<span class="inv-status-badge" style="background: #EAF9F1; color: var(--color-primary);">1 Hari (Menunggu Cair)</span>`;
+                    profitNow = 0; // Belum cair
+                } else {
+                    statusBadge = `<span class="inv-status-badge">Aktif (${inv.duration - inv.daysActive} Hari Tersisa)</span>`;
+                }
+
+                const profitValue = formatRupiah(inv.dailyProfit);
+                const totalValue = formatRupiah(totalPendapatan);
+
+                cardsHtml += `
+                    <div class="investment-new-card investment-card-dynamic">
+                        <div class="inv-stable-fund-header">
+                            <div class="inv-stable-details">
+                                <span class="inv-stable-icon" aria-label="uang">💰</span>
+                                <div>
+                                    <div class="inv-stable-title">${inv.title}</div>
+                                    <div class="inv-stable-subtitle">Nominal Investasi: ${formatRupiah(inv.nominal)}</div>
+                                </div>
+                            </div>
+                            ${statusBadge}
+                        </div>
+                        
+                        <div class="inv-divider"></div>
+
+                        <div class="inv-data-row">
+                            <div class="inv-data-item">
+                                <div class="inv-data-label">Keuntungan Harian</div>
+                                <div class="inv-data-value green">${profitValue}</div>
+                            </div>
+                            <div class="inv-data-item">
+                                <div class="inv-data-label">Total Pendapatan</div>
+                                <div class="inv-data-value blue">${totalValue}</div>
+                            </div>
+                        </div>
+                        
+                        ${inv.duration > 1 && !inv.isCompleted ? 
+                        `<div class="inv-summary-box">
+                            <div class="inv-summary-item">
+                                <span class="inv-summary-icon icon-green" aria-label="grafik naik">⏳</span>
+                                <div class="inv-summary-text-group">
+                                    <span class="inv-summary-title">Akumulasi Profit</span>
+                                    <span class="inv-summary-value">${formatRupiah(profitNow)}</span>
+                                </div>
+                            </div>
+                            <div class="inv-summary-item">
+                                <span class="inv-summary-icon inv-data-value.blue" style="color: var(--color-blue-accent);" aria-label="kalender">📅</span>
+                                <div class="inv-summary-text-group">
+                                    <span class="inv-summary-title">Hari Ke-</span>
+                                    <span class="inv-summary-value blue">${inv.daysActive} / ${inv.duration}</span>
+                                </div>
+                            </div>
+                        </div>` : ''}
+                    </div>
+                `;
+            });
+            
+            // Sisipkan card-card investasi aktif setelah total-header
+            if (totalHeaderCard) {
+                totalHeaderCard.insertAdjacentHTML('afterend', cardsHtml);
+            }
+        }
+        
+        // --- Fungsi Utama Update Data Dinamis ---
+        function updateDynamicData() {
+            // Jalankan simulasi 1 hari berlalu (untuk demo)
+            simulateDayPass(); 
+            
+            const balancePercentage = calculateBalancePercentage();
+            
+            // Update Aset Saya dan hitung total Investasi Aktif
+            updateInvestmentDashboard(); 
+            
+            // Update Saldo di Ringkasan
+            const saldoRingkasanElement = document.getElementById('saldo-value-ringkasan');
+            if (saldoRingkasanElement) saldoRingkasanElement.textContent = formatRupiah(ACCOUNT_BALANCE);
+
+            // Hitung Total Investasi AKTIF untuk menentukan Level
+            const activeInvestmentNominal = ACTIVE_INVESTMENTS
+                .filter(inv => !inv.isCompleted)
+                .reduce((sum, inv) => sum + inv.nominal, 0);
+
+            // Update Level (Magang/Premium) dan Persentase
+            let levelName, levelPercent, levelIcon, levelTextColor;
+            if (activeInvestmentNominal >= 1000000) {
+                levelName = 'Premium';
+                levelPercent = '30%';
+                levelIcon = '👑';
+                levelTextColor = 'var(--color-gold)';
+            } else {
+                levelName = 'Magang';
+                levelPercent = '10%';
+                levelIcon = '🏆';
+                levelTextColor = 'var(--color-primary)';
+            }
+            const levelNameElement = document.getElementById('level-name');
+            const levelPercentElement = document.getElementById('level-percent');
+            const levelIconElement = document.getElementById('level-icon');
+            const saldoPercentElement = document.getElementById('saldo-percent');
+            
+            if (levelNameElement) levelNameElement.textContent = levelName + ':';
+            if (levelPercentElement) levelPercentElement.textContent = levelPercent;
+            if (levelIconElement) {
+                levelIconElement.textContent = levelIcon;
+                levelIconElement.style.color = levelTextColor;
+            }
+            if (saldoPercentElement) {
+                saldoPercentElement.textContent = balancePercentage;
+                saldoPercentElement.style.color = levelTextColor;
+            }
+            
+            // Update Saldo di Profil
+            const saldoProfil = document.querySelector('#general-placeholder .saldo-group .saldo-card:first-child .saldo-value');
+            if (saldoProfil) {
+                saldoProfil.textContent = formatRupiah(ACCOUNT_BALANCE);
+            }
+
+            // Update Jaringan Mitra ke 0
+            const mitraAktif = document.getElementById('mitra-aktif');
+            const komisiHariIni = document.getElementById('komisi-hari-ini');
+            if(mitraAktif) mitraAktif.textContent = '0 Orang';
+            if(komisiHariIni) komisiHariIni.textContent = 'Rp0';
+
+            // Update Daftar Rekening di modal
+            updateBankList();
+        }
+
+        // Update list bank di modal Data Akun Bank
+        function updateBankList() {
+            const bankListContainer = document.getElementById('registered-banks');
+            if (!bankListContainer) return;
+            
+            bankListContainer.innerHTML = '';
+            
+            if (REGISTERED_BANKS.length === 0) {
+                bankListContainer.innerHTML = '<p style="text-align: center; color: var(--color-red); padding: 10px; margin: 0;">Belum ada akun terdaftar.</p>';
+                return;
+            }
+
+            REGISTERED_BANKS.forEach((bank, index) => {
+                const type = ['DANA', 'GOVAY', 'OVO'].includes(bank.bank) ? 'E-Wallet' : 'Bank';
+                const bankItem = document.createElement('div');
+                bankItem.classList.add('bank-item');
+                bankItem.innerHTML = `
+                    <div class="bank-details">
+                        <div class="bank-name">${bank.bank} (${type})</div>
+                        <div class="bank-number">${bank.number} - ${bank.name}</div>
+                    </div>
+                    <button style="color: var(--color-red); font-size: 14px; cursor: pointer; background: none; border: none; padding: 0;" onclick="deleteBank(${index})" aria-label="Hapus Akun ${bank.bank}">[Hapus]</button>
+                `;
+                bankListContainer.appendChild(bankItem);
+            });
+        }
+
+        // Fungsi delete bank
+        function deleteBank(index) {
+            if (confirm(`Yakin ingin menghapus akun ${REGISTERED_BANKS[index].bank} (${REGISTERED_BANKS[index].number})?`)) {
+                REGISTERED_BANKS.splice(index, 1);
+                updateDynamicData(); 
+            }
+        }
+
+
+        // ============================== FUNGSI NAVIGASI & FILTER ==============================
+
+        // Referensi Konten Utama
+        const dashboardContent = document.getElementById('summary-dashboard'); // Ringkasan
+        const mainInvestmentContent = document.getElementById('main-investment-content'); // Grow+
+        const newInvestmentDashboard = document.getElementById('investment-dashboard-new'); // Aset Saya
+        const profileContent = document.getElementById('general-placeholder'); // Profil
+        const navItems = document.querySelectorAll('.navbar .nav-item');
+
+        // Mapping untuk Konten Investasi (Lama/Grow+)
+        const categories = {
+            'hot-day': document.getElementById('hot-day-content'),
+            'money-market': document.getElementById('money-market-content'),
+            'digital-market': document.getElementById('digital-market-content')
+        };
+        const buttons = {
+            'hot-day': document.getElementById('btn-hot'),
+            'money-market': document.getElementById('btn-money'),
+            'digital-market': document.getElementById('btn-digital')
+        };
+
+        // Fungsi Filter Kategori Investasi
+        function showCategory(category) {
+            for (const key in categories) {
+                if(categories[key]) categories[key].style.display = 'none';
+                if(buttons[key]) buttons[key].classList.remove('active');
+            }
+            if (categories[category]) {
+                categories[category].style.display = 'block';
+            }
+            if (buttons[category]) {
+                buttons[category].classList.add('active');
+            }
+        }
+
+        // Fungsi untuk Mengontrol Tampilan Halaman
+        function showPage(pageId, defaultCategory = 'hot-day') {
+            // Sembunyikan semua konten
+            dashboardContent.style.display = 'none';
+            mainInvestmentContent.style.display = 'none';
+            newInvestmentDashboard.style.display = 'none';
+            profileContent.style.display = 'none'; 
+            
+            // Tampilkan konten yang diminta
+            if (pageId === 'dashboard') {
+                dashboardContent.style.display = 'block';
+            } else if (pageId === 'investment-old') {
+                mainInvestmentContent.style.display = 'block';
+                showCategory(defaultCategory); 
+            } else if (pageId === 'investment-new') {
+                newInvestmentDashboard.style.display = 'block';
+            } else if (pageId === 'profile') {
+                profileContent.style.display = 'flex'; 
+            }
+            // Pastikan data terbaru ditampilkan di setiap halaman yang relevan
+            updateDynamicData(); 
+        }
+
+        // Fungsi untuk mengaktifkan item Navigasi Bawah
+        function setActiveNav(elementId) {
+            navItems.forEach(n => n.classList.remove('active'));
+            const navElement = document.getElementById(elementId);
+            if(navElement) navElement.classList.add('active');
+        }
+
+        // Logika Navbar
+        navItems.forEach(nav => {
+            nav.addEventListener('click', function() {
+                setActiveNav(this.id);
+                
+                if (this.id === 'nav-ringkasan') {
+                    showPage('dashboard');
+                } else if (this.id === 'nav-grow') {
+                    showPage('investment-old', 'hot-day');
+                } else if (this.id === 'nav-aset') {
+                    showPage('investment-new');
+                } else if (this.id === 'nav-profil') {
+                    showPage('profile');
+                }
+            });
+        });
+
+        // ============================== FUNGSI MODAL (POP-UP) ==============================
+
+        function openModal(modalId) {
+            closeCurrentModal(); 
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                currentModalId = modalId;
+                modal.classList.add('active');
+                modal.focus(); // Tambahkan fokus untuk aksesibilitas
+            }
+        }
+
+        function closeModal(event) {
+            // Hanya tutup jika yang diklik adalah overlay, bukan konten modal
+            if (event.target.classList.contains('modal-overlay')) {
+                closeCurrentModal();
+            }
+        }
+
+        function closeCurrentModal() {
+            if (currentModalId) {
+                const modal = document.getElementById(currentModalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                }
+                currentModalId = null;
+                // Reset form tambah rekening
+                const addBankForm = document.getElementById('add-bank-form');
+                if (addBankForm) {
+                    addBankForm.style.display = 'none';
+                    // Reset fields
+                    document.getElementById('add-bank-name').value = '';
+                    document.getElementById('add-account-number').value = '';
+                    document.getElementById('add-account-password').value = '';
+                }
+            }
+        }
+
+        function selectPaymentMethod(element) {
+            document.querySelectorAll('.payment-item').forEach(i => i.classList.remove('selected'));
+            document.querySelectorAll('.payment-item').forEach(i => i.setAttribute('aria-pressed', 'false'));
+            
+            element.classList.add('selected');
+            element.setAttribute('aria-pressed', 'true');
+        }
+
+
+        // ============================== LOGIKA FITUR UTAMA (MODAL) ==============================
+
+        function processDeposit() {
+            const amountInput = document.getElementById('deposit-amount');
+            const selectedMethodElement = document.querySelector('.payment-item.selected');
+            
+            if (!amountInput || !selectedMethodElement) {
+                alert('Terdapat masalah pada formulir.');
+                return;
+            }
+
+            const amount = parseInt(amountInput.value);
+            const selectedMethod = selectedMethodElement.getAttribute('data-method');
+
+            if (isNaN(amount) || amount < 50000) {
+                alert('Jumlah Deposit minimal Rp50.000.');
+                return;
+            }
+
+            if (confirm(`Yakin ingin melakukan Deposit sebesar ${formatRupiah(amount)} melalui ${selectedMethod}?`)) {
+                // Logika Deposit: Tambahkan Saldo Akun
+                ACCOUNT_BALANCE += amount; 
+                
+                alert(`Deposit sebesar ${formatRupiah(amount)} berhasil diproses dan ditambahkan ke Saldo Akun Anda.`);
+                updateDynamicData(); // Perbarui tampilan
+                closeCurrentModal();
+                // Reset fields
+                amountInput.value = '';
+            }
+        }
+
+        function processWithdraw() {
+            const methodSelect = document.getElementById('withdraw-bank');
+            const numberInput = document.getElementById('withdraw-number');
+            const nameInput = document.getElementById('withdraw-name');
+            const amountInput = document.getElementById('withdraw-amount');
+            
+            if (!methodSelect || !numberInput || !nameInput || !amountInput) return;
+            
+            const method = methodSelect.value;
+            const number = numberInput.value.trim();
+            const name = nameInput.value.trim();
+            const amount = parseInt(amountInput.value);
+            const maxBalance = ACCOUNT_BALANCE;
+
+            if (!method || !number || !name) {
+                alert('Mohon lengkapi semua kolom penarikan.');
+                return;
+            }
+            
+            if (isNaN(amount) || amount <= 0) {
+                alert('Mohon masukkan jumlah penarikan yang valid.');
+                return;
+            }
+
+            if (amount > maxBalance) {
+                alert(`Saldo Anda tidak mencukupi. Saldo saat ini: ${formatRupiah(maxBalance)}`);
+                return;
+            }
+            
+            // Simulasi biaya penarikan 5% (Contoh)
+            const feeRate = 0.05; 
+            const feeAmount = Math.floor(amount * feeRate);
+            const netWithdrawal = amount - feeAmount;
+
+            if (confirm(`Yakin ingin menarik dana ${formatRupiah(amount)} ke ${method} (${number}) atas nama ${name}? \n(Biaya Admin: ${formatRupiah(feeAmount)}. Bersih diterima: ${formatRupiah(netWithdrawal)})`)) {
+                // Logika Penarikan: Kurangi Saldo Akun
+                ACCOUNT_BALANCE -= amount; 
+                
+                alert(`Permintaan penarikan ${formatRupiah(amount)} ke ${method} berhasil diproses.`);
+                updateDynamicData(); // Perbarui tampilan
+                closeCurrentModal();
+                // Reset fields
+                methodSelect.value = '';
+                numberInput.value = '';
+                nameInput.value = '';
+                amountInput.value = '';
+            }
+        }
+
+        function openAddBankForm() {
+            const form = document.getElementById('add-bank-form');
+            const button = document.querySelector('.btn-add-bank');
+            if (form && button) {
+                const isExpanded = form.style.display === 'block';
+                form.style.display = isExpanded ? 'none' : 'block';
+                button.setAttribute('aria-expanded', !isExpanded);
+            }
+        }
+
+        function registerBank() {
+            const bankName = document.getElementById('add-bank-name').value;
+            const number = document.getElementById('add-account-number').value.trim();
+            const password = document.getElementById('add-account-password').value;
+            const simulatedUserName = "pova69535@gmail.com"; // Nama pengguna
+
+            if (!bankName || !number || !password) {
+                alert('Mohon lengkapi semua kolom pendaftaran akun.');
+                return;
+            }
+            
+            // Cek duplikasi
+            const isDuplicate = REGISTERED_BANKS.some(b => b.number === number);
+            if (isDuplicate) {
+                alert('Nomor akun/ponsel ini sudah terdaftar!');
+                return;
+            }
+
+            // SIMULASI SUKSES (Mengabaikan cek password untuk simulasi)
+            REGISTERED_BANKS.push({ bank: bankName, number: number, name: simulatedUserName });
+            alert(`Akun ${bankName} (${number}) berhasil didaftarkan!`);
+            
+            // Sembunyikan form dan update list
+            const form = document.getElementById('add-bank-form');
+            if(form) form.style.display = 'none';
+            document.getElementById('add-bank-name').value = '';
+            document.getElementById('add-account-number').value = '';
+            document.getElementById('add-account-password').value = '';
+            document.querySelector('.btn-add-bank').setAttribute('aria-expanded', 'false');
+
+            updateDynamicData();
+        }
+
+        function copyInvitationLink() {
+            const linkElement = document.querySelector('#modal-invitation-task .user-link');
+            const btnCopy = document.querySelector('#modal-invitation-task .btn-copy');
+            if(!linkElement || !btnCopy) return;
+            const linkText = linkElement.textContent.replace('🔗 ', '');
+                
+            navigator.clipboard.writeText(linkText).then(() => {
+                btnCopy.textContent = '✅ Disalin!';
+                alert('Tautan undangan berhasil disalin!');
+                setTimeout(() => {
+                    btnCopy.innerHTML = '<span aria-label="tautan">🔗</span> Menyalin';
+                }, 1000);
+            }).catch(err => {
+                console.error('Gagal menyalin: ', err);
+                alert('Gagal menyalin tautan. Silakan coba lagi.');
+            });
+        }
+
+        function confirmLogout() {
+            if (confirm('Anda yakin ingin keluar? Semua sesi akan direset (Simulasi).')) {
+                // Simulasi reset/logout
+                ACCOUNT_BALANCE = 0;
+                REGISTERED_BANKS = [];
+                ACTIVE_INVESTMENTS = []; // Reset investasi aktif
+                updateDynamicData();
+                closeCurrentModal();
+                alert('Anda telah berhasil keluar dan data sesi direset (Simulasi).');
+                showPage('dashboard');
+                setActiveNav('nav-ringkasan');
+            }
+        }
+
+        // ============================== LOGIKA PEMBELIAN INVESTASI ==============================
+        
+        // Fungsi dasar untuk menambahkan investasi baru
+        function addInvestment(title, nominal, dailyProfit, duration) {
+            // Pastikan nominal tidak nol untuk menghindari error
+            if(nominal <= 0) return; 
+
+            // 1. Kurangi Saldo
+            ACCOUNT_BALANCE -= nominal;
+            
+            // 2. Tambahkan ke Daftar Investasi Aktif
+            const newInvestment = {
+                id: Date.now(),
+                title: title,
+                nominal: nominal,
+                dailyProfit: dailyProfit,
+                duration: duration,
+                daysActive: 1, // Langsung aktif di hari ke-1
+                isCompleted: duration === 1 ? false : false // Biarkan 1 hari juga belum selesai sampai "cair"
+            };
+            ACTIVE_INVESTMENTS.push(newInvestment);
+
+            // 3. Logika Pencairan Langsung (untuk 1 Hari) - Simulasikan pencairan setelah hari aktif mencapai durasi
+            if (duration === 1) {
+                const totalReturn = nominal + dailyProfit;
+                ACCOUNT_BALANCE += totalReturn; // Langsung cair ke saldo
+                newInvestment.isCompleted = true; // Langsung tandai selesai
+                alert(`Paket ${title} telah selesai dan nominal ${formatRupiah(totalReturn)} berhasil dicairkan ke Saldo Akun!`);
+            } else {
+                 alert(`Paket ${title} berhasil dibeli! Nominal ${formatRupiah(nominal)} telah dipotong. Produk aktif Anda dapat dilihat di menu Aset Saya. Profit akan diakumulasi selama ${duration} hari.`);
+            }
+
+            // 4. Update Tampilan & Navigasi
+            showPage('investment-new'); // Pindah ke Aset Saya
+            setActiveNav('nav-aset');
+        }
+
+        // Fungsi Pembelian/Klaim Promo HOT 1 Hari
+        function claimHotPromo() {
+            const nominal = 300000;
+            const title = 'Dana Stabil HOT (1 Hari)';
+            const dailyProfit = 650000; // Asumsi: Total profit setelah 1 hari
+            const duration = 1;
+            
+            if (ACCOUNT_BALANCE < nominal) {
+                alert(`Saldo tidak cukup. Diperlukan ${formatRupiah(nominal)}, Saldo Anda: ${formatRupiah(ACCOUNT_BALANCE)}`);
+                return;
+            }
+            
+            if (confirm(`Yakin ingin mengklaim ${title} dengan nominal ${formatRupiah(nominal)}?`)) {
+                // Panggil fungsi penambahan investasi
+                addInvestment(title, nominal, dailyProfit, duration);
+            }
+        }
+
+        // Fungsi Pembelian Paket Investasi (Money Market & Digital Market)
+        function buyInvestment(element) {
+            // Ambil data dari elemen HTML
+            const card = element.closest('.inv-card');
+            const title = card.querySelector('.inv-title').textContent;
+            const nominalText = card.querySelector('.value-green').textContent.replace(/[^\d]/g, '');
+            const durationText = card.querySelector('.value-blue').textContent.replace(/[^\d]/g, '');
+            const dailyProfitText = card.querySelector('.info-value-green').textContent.replace(/[^\d]/g, ''); 
+
+            const nominal = parseInt(nominalText);
+            const duration = parseInt(durationText);
+            const dailyProfit = parseInt(dailyProfitText);
+
+            if (ACCOUNT_BALANCE < nominal) {
+                alert(`Saldo tidak cukup. Diperlukan ${formatRupiah(nominal)}, Saldo Anda: ${formatRupiah(ACCOUNT_BALANCE)}`);
+                return;
+            }
+            
+            if (confirm(`Yakin ingin membeli paket investasi ${title} dengan nominal ${formatRupiah(nominal)}?`)) {
+                 // Panggil fungsi penambahan investasi
+                addInvestment(title, nominal, dailyProfit, duration);
+            }
+        }
+
+
+        // ============================== INIT / INISIALISASI & EVENT LISTENERS ==============================
+
+        // Event listener untuk tombol DEPOSIT di modal
+        const btnDepositModal = document.querySelector('#modal-deposit .btn-deposit');
+        if(btnDepositModal) btnDepositModal.onclick = processDeposit;
+
+        // Event listener untuk tombol TARIK DANA di modal
+        const btnWithdrawModal = document.querySelector('#modal-withdraw .btn-deposit');
+        if(btnWithdrawModal) btnWithdrawModal.onclick = processWithdraw;
+
+        // Event listener untuk tombol KLAIM PROMO (HOT 1 Hari)
+        const btnClaimHot = document.querySelector('#hot-day-content .btn-claim');
+        if(btnClaimHot) btnClaimHot.onclick = claimHotPromo;
+
+        // Event listener untuk tombol MULAI INVESTASI (Money & Digital Market)
+        document.querySelectorAll('.btn-invest').forEach(btn => {
+            btn.addEventListener('click', function() {
+                buyInvestment(this);
+            });
+        });
+
+        // Event listener untuk tombol copy di Tugas Undangan
+        const btnCopyModal = document.querySelector('#modal-invitation-task .btn-deposit');
+        if (btnCopyModal) btnCopyModal.onclick = copyInvitationLink;
+        
+        // Event listener untuk tombol copy di Profil
+        const btnCopyProfil = document.querySelector('#general-placeholder .btn-copy');
+        if (btnCopyProfil) {
+            btnCopyProfil.addEventListener('click', function() {
+                const linkElement = document.querySelector('#general-placeholder .user-link');
+                const linkText = linkElement.textContent.replace('🔗 ', '');
+                
+                navigator.clipboard.writeText(linkText).then(() => {
+                    btnCopyProfil.textContent = '✅ Disalin!';
+                    setTimeout(() => {
+                        btnCopyProfil.innerHTML = '<span aria-label="tautan">🔗</span> Menyalin';
+                    }, 1000);
+                }).catch(err => {
+                    console.error('Gagal menyalin: ', err);
+                    alert('Gagal menyalin tautan. Silakan coba lagi.');
+                });
+            });
+        }
+        
+        // Event listener untuk memilih metode pembayaran
+        document.querySelectorAll('.payment-method-grid').forEach(grid => {
+            grid.addEventListener('click', function(e) {
+                const item = e.target.closest('.payment-item');
+                if (item) {
+                    selectPaymentMethod(item);
+                }
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update data dinamis saat halaman dimuat
+            updateDynamicData();
+            // Atur halaman awal
+            setActiveNav('nav-ringkasan');
+            showPage('dashboard'); 
+        });
+    </script>
+</body>
+</html>

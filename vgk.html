@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jasa Edit 5K</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #0a0a1a, #000);
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+}
+
+/* ===== Kotak utama ===== */
+.main-box {
+  position: relative;
+  background: linear-gradient(135deg, #6a11cb, #2575fc, #00f2fe);
+  border-radius: 25px;
+  padding: 35px 25px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+  width: 340px;
+  z-index: 5;
+  animation: fadeUp 1s ease-out;
+}
+
+/* ===== Teks utama ===== */
+.main-box h1 {
+  font-size: 28px;
+  font-weight: 900;
+  margin: 0 0 12px 0;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  color: #fff;
+}
+
+/* ===== Deskripsi ===== */
+.main-box p {
+  font-size: 14px;
+  color: #f0f0f0;
+  margin-bottom: 15px;
+}
+
+/* ===== Tombol WhatsApp ===== */
+.whatsapp-btn {
+  display: inline-block;
+  background: linear-gradient(90deg, #00ffb0, #00c6ff, #9d4edd);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 0 15px rgba(0,255,180,0.5);
+  transition: 0.3s ease;
+}
+.whatsapp-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 25px rgba(157,78,221,0.8);
+}
+
+/* ===== Emoji Bar ===== */
+.emoji-bar {
+  margin-top: 20px;
+  font-size: 25px;
+  display: flex;
+  justify-content: space-around;
+}
+.emoji-bar span {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.emoji-bar span:hover {
+  transform: scale(1.3);
+}
+
+/* ===== Teks bawah ===== */
+.bottom-text {
+  font-size: 13px;
+  color: #e0e0e0;
+  margin-top: 15px;
+  opacity: 0.9;
+}
+
+/* ===== Animasi jatuh ===== */
+.falling {
+  position: fixed;
+  top: -50px;
+  font-size: 25px;
+  animation: fall 3s linear forwards;
+  pointer-events: none;
+}
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ===== Kotak Tanggapan ===== */
+.feedback-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: linear-gradient(135deg, rgba(0,255,100,0.3), rgba(0,200,150,0.3));
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px 25px;
+  width: 280px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease;
+  box-shadow: 0 0 25px rgba(0,255,100,0.3);
+}
+.feedback-box.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.feedback-box p {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.feedback-box textarea {
+  width: 100%;
+  height: 60px;
+  border-radius: 10px;
+  border: none;
+  padding: 8px;
+  resize: none;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+.feedback-box textarea::placeholder {
+  color: #ffffff; /* placeholder putih */
+  opacity: 0.8;
+}
+
+.feedback-box .btn-wrap {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.feedback-box a, .feedback-box button {
+  background: linear-gradient(90deg, #00ffb0, #00c6ff, #9d4edd);
+  border: none;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+.feedback-box a:hover, .feedback-box button:hover {
+  transform: scale(1.1);
+}
+
+@keyframes fadeUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<div class="main-box">
+  <h1>JASA EDIT CUMA 5K</h1>
+  <p>Dapatkan hasil editan keren cuma 5 ribu aja 💚</p>
+  <a href="https://chat.whatsapp.com/JEn94eqdOui4FVgLsWqAtX?mode=" class="whatsapp-btn">🚀 Join WhatsApp</a>
+
+  <div class="emoji-bar">
+    <span class="emoji-love">💖</span>
+    <span class="emoji-star">⭐</span>
+    <span class="emoji-comment">💬</span>
+    <span class="emoji-plus">➕</span>
+  </div>
+
+  <div class="bottom-text">
+    Kalau kamu mau buat website kaya gini langsung WA aja 📱
+  </div>
+
+  <div class="feedback-box">
+    <p>Seberapa bagus pelayanan aku? 💬</p>
+    <textarea placeholder="Tulis tanggapan kamu..."></textarea>
+    <div class="btn-wrap">
+      <a href="https://wa.me/qr/3PRSQ54E37BYE1" target="_blank">Kirim</a>
+      <button class="btn-back">Kembali</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// animasi love jatuh
+document.querySelector('.emoji-love').addEventListener('click', () => {
+  for(let i=0;i<15;i++){
+    let heart = document.createElement('div');
+    heart.classList.add('falling');
+    heart.textContent = '💖';
+    heart.style.left = Math.random()*100 + 'vw';
+    heart.style.fontSize = Math.random()*20 + 15 + 'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),3000);
+  }
+});
+
+// animasi bintang jatuh
+document.querySelector('.emoji-star').addEventListener('click', () => {
+  for(let i=0;i<20;i++){
+    let star = document.createElement('div');
+    star.classList.add('falling');
+    star.textContent = '⭐';
+    star.style.left = Math.random()*100 + 'vw';
+    star.style.fontSize = Math.random()*15 + 10 + 'px';
+    document.body.appendChild(star);
+    setTimeout(()=>star.remove(),3000);
+  }
+});
+
+// buka kotak tanggapan
+const commentBtn = document.querySelector('.emoji-comment');
+const feedbackBox = document.querySelector('.feedback-box');
+const backBtn = document.querySelector('.btn-back');
+
+commentBtn.addEventListener('click', () => {
+  feedbackBox.classList.add('active');
+});
+backBtn.addEventListener('click', () => {
+  feedbackBox.classList.remove('active');
+});
+
+// buka tiktok
+document.querySelector('.emoji-plus').addEventListener('click', () => {
+  window.open("https://tiktok.com/@dixzz.17", "_blank");
+});
+</script>
+
+</body>
+</html>
